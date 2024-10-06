@@ -1,0 +1,108 @@
+# Importing necessary libraries
+import datetime
+
+# Function to assess user's knowledge
+def assess_knowledge():
+    print("Welcome to Python Knowledge Assessment!")
+    score = 0
+
+    # Questions to assess knowledge
+    questions = [
+        ("Do you know how to define functions in Python?", "yes"),
+        ("Have you worked with loops (for, while) in Python?", "yes"),
+        ("Do you know about object-oriented programming (OOP) in Python?", "yes"),
+        ("Have you used libraries like NumPy, Pandas, or Matplotlib?", "yes"),
+        ("Do you understand Python decorators and generators?", "yes"),
+        ("Are you familiar with web development frameworks (Django/Flask)?", "yes"),
+        ("Have you worked with databases and Python (SQLAlchemy, SQLite)?", "yes")
+    ]
+
+    # Loop through questions
+    for question, correct_answer in questions:
+        user_answer = input(question + " (yes/no): ").strip().lower()
+        if user_answer == correct_answer:
+            score += 1
+
+    # Classify user knowledge based on score
+    if score <= 2:
+        level = "beginner"
+    elif 3 <= score <= 5:
+        level = "intermediate"
+    else:
+        level = "advanced"
+
+    return level
+
+# Function to generate learning roadmap
+def generate_roadmap(level):
+    roadmap = {
+        "beginner": [
+            "1. Learn Python syntax, data types, and basic I/O.",
+            "2. Understand conditionals, loops, and functions.",
+            "3. Work with lists, dictionaries, and tuples.",
+            "4. Learn how to handle errors using exceptions.",
+            "5. Basic file handling (read/write)."
+        ],
+        "intermediate": [
+            "1. Learn Object-Oriented Programming (OOP).",
+            "2. Get comfortable with modules and packages.",
+            "3. Work with libraries like NumPy, Pandas.",
+            "4. Understand list comprehensions and lambda functions.",
+            "5. Study error handling, debugging, and testing."
+        ],
+        "advanced": [
+            "1. Master Python decorators and generators.",
+            "2. Learn web development with Flask or Django.",
+            "3. Explore asynchronous programming (asyncio).",
+            "4. Work with databases and ORMs (SQLAlchemy).",
+            "5. Learn about performance optimization and scalability."
+        ]
+    }
+    print(f"\nBased on your level, here is your learning roadmap for {level} level:")
+    for step in roadmap[level]:
+        print(step)
+
+# Function to get user's schedule and generate a timetable
+def generate_timetable(level):
+    print("\nLet's create a study timetable based on your availability.")
+
+    # Get user input on availability
+    days_per_week = int(input("How many days per week can you study? (1-7): "))
+    hours_per_day = float(input("How many hours per day can you dedicate to learning Python?: "))
+
+    # Suggested total learning hours for different levels
+    learning_hours = {
+        "beginner": 40,
+        "intermediate": 60,
+        "advanced": 80
+    }
+
+    total_hours = learning_hours[level]
+    total_study_time = days_per_week * hours_per_day
+    weeks_needed = total_hours / total_study_time
+
+    # Create a timetable based on user's availability
+    print(f"\nYou need approximately {total_hours} hours to complete your {level} roadmap.")
+    print(f"Based on your availability, you will need around {round(weeks_needed, 1)} weeks to complete the course.")
+    print(f"Suggested timetable: Study {days_per_week} days a week, {hours_per_day} hours per day.")
+
+    # Optional: Display detailed timetable
+    start_date = datetime.date.today()
+    end_date = start_date + datetime.timedelta(weeks=weeks_needed)
+    print(f"\nStart Date: {start_date}")
+    print(f"End Date (approx.): {end_date}")
+
+
+# Main function
+def main():
+    # Step 1: Assess knowledge level
+    level = assess_knowledge()
+
+    # Step 2: Generate learning roadmap based on level
+    generate_roadmap(level)
+
+    # Step 3: Create a timetable that suits the user
+    generate_timetable(level)
+
+if __name__ == "__main__":
+    main()
